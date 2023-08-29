@@ -10,7 +10,6 @@ const Homepage = () => {
 
   const dispatch = useDispatch();
   const login = (response: any) => {
-    console.log(response);
     dispatch(setSignedIn(true));
     dispatch(setUserData(response.profileObj));
   };
