@@ -5,64 +5,64 @@ import { selectUserInput, setBlogData } from "../../features/userSlice";
 
 interface Blog {
     source: {
-      name: string;
+        name: string;
     };
     url: string;
     image: string;
     publishedAt: string;
     title: string;
     description: string;
-  }
+}
 
 const Blogs = () => {
-  const searchInput = useSelector(selectUserInput);
-  const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
-  const dispatch = useDispatch();
-  const [blogs, setBlogs] = useState<any>(null);;
+    const searchInput = useSelector(selectUserInput);
+    const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
+    const dispatch = useDispatch();
+    const [blogs, setBlogs] = useState<any>(null);;
 
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .get(blog_url)
-      .then((response) => {
-        dispatch(setBlogData(response.data));
-        setBlogs(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [searchInput]);
+    useEffect(() => {
+        axios
+            .get(blog_url)
+            .then((response) => {
+                dispatch(setBlogData(response.data));
+                setBlogs(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [searchInput]);
 
-  return (
-    <div >
-      <h1 >Blogs</h1>
-      {loading ? <h1 >Loading...</h1> : ""}
-      <div >
-        {blogs?.articles?.map((blog: Blog) => (
-          <a  target="_blank" href={blog.url}>
-            <img src={blog.image} />
-            <div> 
-              <h3 >
-                <span>{blog.source.name}</span>
-                <p>{blog.publishedAt}</p>
-              </h3>
-              <h1>{blog.title}</h1>
-              <p>{blog.description}</p>
+    return (
+        <div className="font-mono px-[3rem]">
+            <h1 className="pt-[3rem] text-4xl underline">Blogs</h1>
+            {loading ? <h1 >Loading...</h1> : ""}
+            <div className="  grid gap-10 pt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:place-content-center">
+                {blogs?.articles?.map((blog: Blog) => (
+                    <a className="shadow-lg bg-gray-50 border rounded-md pb-5" target="_blank" key={blog.title} href={blog.url}>
+                        <img src={blog.image} className="h-[180px] w-full" alt={blog.title} />
+                        <div>
+                            <h3 className="flex text-sm items-center justify-between p-3" >
+                                <span >{blog.source.name}</span>
+                                <p className="bg-gray-100 py-1 px-2 rounded-lg">{new Date(blog.publishedAt).toDateString()}</p>
+                            </h3>
+                            <h1 className="font-bold p-3">{blog.title}</h1>
+                            <p className=" text-xs px-3">{blog.description}</p>
+                        </div>
+                    </a>
+                ))}
+
+                {blogs?.totalArticles == 0 && (
+                    <h1 className="flex items-center justify-center">
+                        No blogs available 😞. Search something else to read blogs on the
+                        greatest platform.
+                    </h1>
+                )}
             </div>
-          </a>
-        ))}
-
-        {blogs?.totalArticles == 0 && (
-          <h1>
-            No blogs available 😞. Search something else to read blogs on the
-            greatest platform.
-          </h1>
-        )}
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default Blogs;
