@@ -22,6 +22,7 @@ Green Living is a platform for sharing insightful articles, stories, and experie
 - Axios: HTTP client for making API requests
 - React Icons: Icons for user interface elements
 - Toastify: Notifications for user feedback
+- Gnews-Api: for blog posts
 
 ## Production
 
