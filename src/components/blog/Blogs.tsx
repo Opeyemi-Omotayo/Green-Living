@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserInput, setBlogData } from "../../features/userSlice";
+import { toast } from "react-toastify";
 
 interface Blog {
     source: {
@@ -16,7 +17,7 @@ interface Blog {
 
 const Blogs = () => {
     const searchInput = useSelector(selectUserInput);
-   // const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
+    const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
     const dispatch = useDispatch();
     const [blogs, setBlogs] = useState<any>(null);;
 
@@ -31,7 +32,7 @@ const Blogs = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                console.log(error);
+                toast(error);
             });
     }, [searchInput]);
 

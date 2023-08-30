@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectSignedIn, setSignedIn } from "../../features/userSlice";
 import { app } from "../../firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const Homepage = () => {
   const isSignedIn = useSelector(selectSignedIn);
@@ -14,13 +15,11 @@ const Homepage = () => {
     const auth = getAuth(app);
     signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
         dispatch(setSignedIn(true));
       }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        toast(errorCode, errorMessage);
       });
   };
 
