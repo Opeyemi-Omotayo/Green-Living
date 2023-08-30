@@ -8,7 +8,7 @@ const Homepage = () => {
   const isSignedIn = useSelector(selectSignedIn);
 
   const dispatch = useDispatch();
-  
+
   const login = () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth(app);
@@ -35,7 +35,7 @@ const Homepage = () => {
               This is a platform where we share insightful articles, stories, and experiences on a wide range of topics. Whether you're interested in technology, lifestyle, travel, or personal growth, you'll find something engaging and thought-provoking here.
             </p>
 
-            <button className="bg-green-500 p-4 rounded-lg shadow-md" onClick={login}>
+            <button className="bg-green-600 p-4 rounded-lg shadow-md" onClick={login}>
               Login with Google
             </button>
           </div>

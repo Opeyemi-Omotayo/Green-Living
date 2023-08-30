@@ -16,7 +16,7 @@ interface Blog {
 
 const Blogs = () => {
     const searchInput = useSelector(selectUserInput);
-    const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
+   // const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
     const dispatch = useDispatch();
     const [blogs, setBlogs] = useState<any>(null);;
 
