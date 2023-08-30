@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserInput, setBlogData } from "../../features/userSlice";
 import { toast } from "react-toastify";
+import Search from "../search/Search";
 
 interface Blog {
     source: {
@@ -19,7 +20,6 @@ const Blogs = () => {
     const searchInput = useSelector(selectUserInput);
     const dispatch = useDispatch();
     const [blogs, setBlogs] = useState<any>(null);;
-
     const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&country=ng&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
 
     const [loading, setLoading] = useState(true);
@@ -38,7 +38,10 @@ const Blogs = () => {
     }, [searchInput, blog_url]);
 
     return (
-        <div className="font-mono px-[3rem]">
+        <div className="font-mono px-[1rem] md:px-[2rem] lg:px-[3rem]">
+            <div className="flex mt-[2rem] lg:hidden">
+            <Search />
+            </div>
             <h1 className="pt-[3rem] text-4xl underline">Blogs</h1>
             {loading ? <h1>Loading...</h1> : ""}
             <div className="  grid gap-10 pt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:place-content-center">
