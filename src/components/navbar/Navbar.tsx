@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectSignedIn, setInput, setSignedIn } from "../../features/userSlice";
+import { selectSignedIn, setSignedIn } from "../../features/userSlice";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "../../firebase";
 import { FaAudible } from "react-icons/fa";

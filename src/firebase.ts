@@ -7,7 +7,7 @@ import { initializeApp } from "firebase/app";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: "green-living-c7db9.firebaseapp.com",
+  authDomain: "green-living-eta.vercel.app",
   projectId: "green-living-c7db9",
   storageBucket: "green-living-c7db9.appspot.com",
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
