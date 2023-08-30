@@ -37,7 +37,6 @@ const Homepage = () => {
   }
 
   const handleLoginClick = () => {
-    console.log(window.innerWidth)
     if (window.innerWidth >= 1024) {
       loginWithPopup();
     } else {
