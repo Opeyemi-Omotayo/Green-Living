@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSignedIn, setSignedIn } from "../../features/userSlice";
 import { app } from "../../firebase";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
 import { toast } from "react-toastify";
 import { FaAudible } from "react-icons/fa";
 
@@ -10,10 +10,10 @@ const Homepage = () => {
   const isSignedIn = useSelector(selectSignedIn);
 
   const dispatch = useDispatch();
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth(app);
 
-  const login = () => {
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth(app);
+  const loginWithPopup = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         dispatch(setSignedIn(true));
@@ -22,6 +22,27 @@ const Homepage = () => {
         const errorMessage = error.message;
         toast(errorCode, errorMessage);
       });
+  };
+
+  const loginWithRedirect = () => {
+    signInWithRedirect(auth, provider);
+    getRedirectResult(auth)
+      .then((result) => {
+        dispatch(setSignedIn(true));
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast(errorCode, errorMessage);
+      });
+  }
+
+  const handleLoginClick = () => {
+    console.log(window.innerWidth)
+    if (window.innerWidth >= 1024) {
+      loginWithPopup();
+    } else {
+      loginWithRedirect();
+    }
   };
 
   return (
@@ -35,7 +56,7 @@ const Homepage = () => {
               This is a platform where we share insightful articles, stories, and experiences on a wide range of topics. Whether you're interested in technology, lifestyle, travel, or personal growth, you'll find something engaging and thought-provoking here.
             </p>
 
-            <button className="bg-green-600 p-4 rounded-lg shadow-md" onClick={login}>
+            <button className="bg-green-600 p-4 rounded-lg shadow-md" onClick={handleLoginClick}>
               Login with Google
             </button>
           </div>

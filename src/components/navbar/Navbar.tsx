@@ -34,7 +34,9 @@ const Navbar = () => {
                     <span>Green Living</span>
                     <span className="text-green-500 text-2xl ml-2"><FaAudible /></span>
                 </h1>
-                <Search />
+                <div className=" flex flex-1 mx-[3rem]">
+                    <Search />
+                </div>
                 {isSignedIn ? (
                     <div className="flex items-center bg-gray-900 py-2 px-4 rounded-lg">
                         <h1 className="mr-5" ><AiOutlineUser className="text-lg" /></h1>
