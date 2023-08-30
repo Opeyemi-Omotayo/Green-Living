@@ -8,6 +8,7 @@ const Homepage = () => {
   const isSignedIn = useSelector(selectSignedIn);
 
   const dispatch = useDispatch();
+  
   const login = () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth(app);
