@@ -4,17 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserInput, setBlogData } from "../../features/userSlice";
 import { toast } from "react-toastify";
 import Search from "../search/Search";
+import LoadingSpinner from "../loadingSpiinner/LoadingSpinner";
+import { Blog } from "../../types/types";
 
-interface Blog {
-    source: {
-        name: string;
-    };
-    url: string;
-    image: string;
-    publishedAt: string;
-    title: string;
-    description: string;
-}
 
 const Blogs = () => {
     const searchInput = useSelector(selectUserInput);
@@ -22,10 +14,11 @@ const Blogs = () => {
     const [blogs, setBlogs] = useState<any>(null);
     const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&country=ng&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        axios
+    const fetchData = async () => {
+        setLoading(true);
+       await axios
             .get(blog_url)
             .then((response) => {
                 dispatch(setBlogData(response.data));
@@ -34,19 +27,23 @@ const Blogs = () => {
             })
             .catch((error) => {
                 toast(error);
-            });
+            })
+    };
+
+    useEffect(() => {
+        fetchData();
     }, [searchInput, blog_url]);
 
     return (
         <div className="font-mono px-[1rem] md:px-[2rem] lg:px-[3rem]">
             <div className="flex mt-[2rem] lg:hidden">
-            <Search />
+                <Search />
             </div>
             <h1 className="pt-[3rem] text-4xl underline">Blogs</h1>
-            {loading ? <h1>Loading...</h1> : ""}
-            <div className="  grid gap-10 pt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:place-content-center">
+            {loading && <LoadingSpinner />}
+            {!loading && <div className="  grid gap-10 pt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:place-content-center mb-[4rem]">
                 {blogs?.articles?.map((blog: Blog) => (
-                    <a className="shadow-lg bg-gray-50 border rounded-md pb-5" target="_blank" rel="noreferrer" key={blog.title} href={blog.url}>
+                    <a className="shadow-lg bg-gray-50 border rounded-md pb-5" target="_blank" rel="noreferrer" key={Math.random()} href={blog.url}>
                         <img src={blog.image} className="h-[180px] w-full" alt={blog.title} />
                         <div>
                             <h3 className="flex text-sm items-center justify-between p-3" >
@@ -65,7 +62,7 @@ const Blogs = () => {
                         greatest platform.
                     </h1>
                 )}
-            </div>
+            </div>}
         </div>
     );
 };

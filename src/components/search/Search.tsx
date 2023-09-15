@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSignedIn, setInput } from '../../features/userSlice';
 import { BiSearchAlt2 } from "react-icons/bi";
