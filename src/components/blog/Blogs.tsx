@@ -19,7 +19,7 @@ interface Blog {
 const Blogs = () => {
     const searchInput = useSelector(selectUserInput);
     const dispatch = useDispatch();
-    const [blogs, setBlogs] = useState<any>(null);;
+    const [blogs, setBlogs] = useState<any>(null);
     const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&country=ng&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
 
     const [loading, setLoading] = useState(true);
