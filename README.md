@@ -8,7 +8,7 @@ Green Living is a platform for sharing insightful articles, stories, and experie
 ## Features
 
 - User authentication with Firebase
-- Search for articles on various topics
+- Search for articles on various topics like fashion, sports, health, politics e.t.c
 - Responsive design for different screen sizes
 - Access to a curated collection of insightful blogs
 
@@ -18,7 +18,7 @@ Green Living is a platform for sharing insightful articles, stories, and experie
 - TailwindCSS: For design
 - Typescript: For type checking
 - Redux: State management 
-- Firebase: Authentication
+- Firebase: Authentication and hoisting
 - Axios: HTTP client for making API requests
 - React Icons: Icons for user interface elements
 - Toastify: Notifications for user feedback
