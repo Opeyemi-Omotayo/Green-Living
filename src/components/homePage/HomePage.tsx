@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSignedIn, setSignedIn } from "../../features/userSlice";
 import { app } from "../../firebase";
@@ -8,13 +8,28 @@ import { FaAudible } from "react-icons/fa";
 
 const Homepage = () => {
   const isSignedIn = useSelector(selectSignedIn);
-
   const dispatch = useDispatch();
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
+  // useEffect(() => { 
+  //   const checkRedirectResult =async () => {
+  //     await getRedirectResult(auth)
+  //    .then((result) => {
+  //      if (result?.user) {
+  //        dispatch(setSignedIn(true));
+  //      }
+  //    })
+  //    .catch((error) => {
+  //      const errorCode = error.code;
+  //      const errorMessage = error.message;
+  //      toast.error(`Error: ${errorCode} - ${errorMessage}`);
+  //    });
+  //  }; 
+  //   checkRedirectResult();
+  // }, [ auth, dispatch]);
 
-  const loginWithPopup = () => {
-    signInWithPopup(auth, provider)
+  const loginWithPopup = async() => {
+   await signInWithPopup(auth, provider)
       .then((result) => {
         dispatch(setSignedIn(true));
       }).catch((error) => {
@@ -24,31 +39,17 @@ const Homepage = () => {
       });
   };
 
+  // const loginWithRedirect =async () => {
+  //  await signInWithRedirect(auth, provider);
+  // };
 
-  const loginWithRedirect = () => {
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result?.user) {
-          dispatch(setSignedIn(true));
-        } else {
-          signInWithRedirect(auth, provider)
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        toast(errorCode, errorMessage);
-      });
-  }
-  
-
-  const handleLoginClick = () => {
-    if (window.innerWidth >= 1024) {
-      loginWithPopup();
-    } else {
-      loginWithRedirect();
-    }
-  };
+  // const handleLoginClick = () => {
+  //   if (window.innerWidth >= 1024) {
+  //     loginWithPopup();
+  //   } else {
+  //     loginWithRedirect();
+  //   }
+  // };
 
   return (
     <div className={` ${isSignedIn ? 'hidden' : 'block'}`}>
@@ -61,7 +62,7 @@ const Homepage = () => {
               This is a platform where we share insightful articles, stories, and experiences on a wide range of topics. Whether you're interested in technology, lifestyle, travel, or personal growth, you'll find something engaging and thought-provoking here.
             </p>
 
-            <button type="button" className="bg-green-600 text-white p-4 rounded-lg shadow-md" onClick={handleLoginClick}>
+            <button type="button" className="bg-green-600 text-white p-4 rounded-lg shadow-md" onClick={loginWithPopup}>
               Login with Google
             </button>
           </div>

@@ -25,7 +25,7 @@ const Search = () => {
                                 value={inputValue}
                                 onChange={(event) => setInputValue(event.target.value)}
                             />
-                            <button className="bg-green-600 py-2 px-3" type="submit">
+                            <button className="bg-green-600 text-white py-2 px-3" type="submit">
                                 <BiSearchAlt2 className="text-2xl" />
                             </button>
                         </div>
