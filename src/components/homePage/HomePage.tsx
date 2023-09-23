@@ -11,22 +11,6 @@ const Homepage = () => {
   const dispatch = useDispatch();
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-  // useEffect(() => { 
-  //   const checkRedirectResult =async () => {
-  //     await getRedirectResult(auth)
-  //    .then((result) => {
-  //      if (result?.user) {
-  //        dispatch(setSignedIn(true));
-  //      }
-  //    })
-  //    .catch((error) => {
-  //      const errorCode = error.code;
-  //      const errorMessage = error.message;
-  //      toast.error(`Error: ${errorCode} - ${errorMessage}`);
-  //    });
-  //  }; 
-  //   checkRedirectResult();
-  // }, [ auth, dispatch]);
 
   const loginWithPopup = async() => {
    await signInWithPopup(auth, provider)
@@ -39,17 +23,6 @@ const Homepage = () => {
       });
   };
 
-  // const loginWithRedirect =async () => {
-  //  await signInWithRedirect(auth, provider);
-  // };
-
-  // const handleLoginClick = () => {
-  //   if (window.innerWidth >= 1024) {
-  //     loginWithPopup();
-  //   } else {
-  //     loginWithRedirect();
-  //   }
-  // };
 
   return (
     <div className={` ${isSignedIn ? 'hidden' : 'block'}`}>
@@ -62,7 +35,7 @@ const Homepage = () => {
               This is a platform where we share insightful articles, stories, and experiences on a wide range of topics. Whether you're interested in technology, lifestyle, travel, or personal growth, you'll find something engaging and thought-provoking here.
             </p>
 
-            <button type="button" className="bg-green-600 text-white p-4 rounded-lg shadow-md" onClick={loginWithPopup}>
+            <button type="button" className="p-4 text-white bg-green-600 rounded-lg shadow-md" onClick={loginWithPopup}>
               Login with Google
             </button>
           </div>
